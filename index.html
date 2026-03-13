@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>SemFellas – Reveal Your Competitors' Web Traffic</title>
+    <meta
+      name="description"
+      content="SemFellas helps you reveal competitors' and prospects' web traffic data, traffic sources, and engagement insights."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="sf-header">
+      <div class="sf-container sf-header-inner">
+        <div class="sf-logo">
+          <span class="sf-logo-mark">S</span>
+          <span class="sf-logo-text">SemFellas</span>
+        </div>
+        <nav class="sf-nav">
+          <a href="#features">Features</a>
+          <a href="#insights">Insights</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#cta" class="sf-nav-cta">Get started</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="sf-hero" id="top">
+        <div class="sf-hero-overlay"></div>
+        <div class="sf-container sf-hero-grid">
+          <div class="sf-hero-copy">
+            <p class="sf-eyebrow">Competitive intelligence for hungry marketers</p>
+            <h1>
+              Reveal your competitors' and prospects'
+              <span class="sf-highlight">web traffic reality</span>.
+            </h1>
+            <p class="sf-hero-subtitle">
+              See exactly where their visitors come from, how they behave, and
+              which channels actually move the needle.
+            </p>
+
+            <form id="domain-form" class="sf-domain-form" novalidate>
+              <div class="sf-input-group">
+                <input
+                  type="text"
+                  id="domain-input"
+                  placeholder="Enter a domain (example.com)"
+                  autocomplete="off"
+                />
+                <button type="submit">Get insights</button>
+              </div>
+              <p id="domain-error" class="sf-error" aria-live="polite"></p>
+              <p class="sf-helper">
+                No credit card. Sample data for demo purposes.
+              </p>
+            </form>
+
+            <div class="sf-hero-badges">
+              <div class="sf-badge">
+                <span class="sf-badge-value" data-counter="35">35M+</span>
+                <span class="sf-badge-label">monthly keywords tracked</span>
+              </div>
+              <div class="sf-badge">
+                <span class="sf-badge-value" data-counter="120">120+</span>
+                <span class="sf-badge-label">markets monitored</span>
+              </div>
+              <div class="sf-badge">
+                <span class="sf-badge-value" data-counter="4.9">4.9</span>
+                <span class="sf-badge-label">average rating from teams</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sf-hero-panel">
+            <div class="sf-hero-card">
+              <div class="sf-hero-card-header">
+                <span class="sf-chip sf-chip-primary">Live snapshot</span>
+                <span class="sf-chip sf-chip-muted">SemFellas demo</span>
+              </div>
+              <div class="sf-hero-card-body">
+                <div class="sf-metric-row">
+                  <div class="sf-metric">
+                    <span class="sf-metric-label">Estimated monthly visits</span>
+                    <span
+                      class="sf-metric-value"
+                      id="metric-visits"
+                      data-base="1.8"
+                      >1.8M</span
+                    >
+                  </div>
+                  <div class="sf-metric">
+                    <span class="sf-metric-label">Avg. visit duration</span>
+                    <span
+                      class="sf-metric-value"
+                      id="metric-duration"
+                      data-base="03:12"
+                      >03:12</span
+                    >
+                  </div>
+                </div>
+
+                <div class="sf-chart-card">
+                  <div class="sf-chart-header">
+                    <span class="sf-chart-title">Traffic channels</span>
+                    <span class="sf-chart-legend">
+                      <span class="sf-dot sf-dot-organic"></span> Organic
+                      <span class="sf-dot sf-dot-paid"></span> Paid
+                      <span class="sf-dot sf-dot-social"></span> Social
+                    </span>
+                  </div>
+                  <div class="sf-chart-bars">
+                    <div class="sf-bar-group">
+                      <span class="sf-bar-label">Search</span>
+                      <div class="sf-bar-track">
+                        <div
+                          class="sf-bar sf-bar-organic"
+                          data-bar="68"
+                          style="width: 68%"
+                        ></div>
+                      </div>
+                      <span class="sf-bar-value" id="metric-search">68%</span>
+                    </div>
+                    <div class="sf-bar-group">
+                      <span class="sf-bar-label">Social</span>
+                      <div class="sf-bar-track">
+                        <div
+                          class="sf-bar sf-bar-social"
+                          data-bar="17"
+                          style="width: 17%"
+                        ></div>
+                      </div>
+                      <span class="sf-bar-value" id="metric-social">17%</span>
+                    </div>
+                    <div class="sf-bar-group">
+                      <span class="sf-bar-label">Direct &amp; referral</span>
+                      <div class="sf-bar-track">
+                        <div
+                          class="sf-bar sf-bar-direct"
+                          data-bar="15"
+                          style="width: 15%"
+                        ></div>
+                      </div>
+                      <span class="sf-bar-value" id="metric-direct">15%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sf-device-split">
+                  <div class="sf-device-pie">
+                    <div class="sf-device-pie-inner">
+                      <span id="metric-desktop">65%</span>
+                      <span class="sf-device-label">Desktop</span>
+                    </div>
+                  </div>
+                  <div class="sf-device-meta">
+                    <p>Traffic by device</p>
+                    <ul>
+                      <li><span class="sf-dot sf-dot-desktop"></span> Desktop</li>
+                      <li><span class="sf-dot sf-dot-mobile"></span> Mobile</li>
+                      <li><span class="sf-dot sf-dot-tablet"></span> Tablet</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sf-logos">
+          <div class="sf-container sf-logos-row">
+            <span class="sf-logos-label">Trusted by teams at</span>
+            <div class="sf-logos-strip">
+              <span>Northwind</span>
+              <span>Contoso</span>
+              <span>Globex</span>
+              <span>UmbraTech</span>
+              <span>Acme Labs</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sf-section" id="features">
+        <div class="sf-container sf-section-grid">
+          <div>
+            <h2>Evaluate performance of any competitive site in seconds.</h2>
+            <p class="sf-section-subtitle">
+              SemFellas turns raw traffic data into a clear story you can act
+              on. No more guessing what is actually working for your rivals.
+            </p>
+            <ul class="sf-feature-list">
+              <li>
+                <h3>Traffic volume &amp; growth</h3>
+                <p>
+                  Benchmark monthly visits, growth curves, and engagement to
+                  understand who is actually winning attention.
+                </p>
+              </li>
+              <li>
+                <h3>Channel mix breakdown</h3>
+                <p>
+                  See how much traffic comes from search, paid, social, direct,
+                  and referrals—down to campaign level.
+                </p>
+              </li>
+              <li>
+                <h3>Geo &amp; device insights</h3>
+                <p>
+                  Discover which markets and devices matter most so you can
+                  localize and prioritize intelligently.
+                </p>
+              </li>
+              <li>
+                <h3>Opportunity detection</h3>
+                <p>
+                  Spot under-served channels and keywords where competitors are
+                  weak and you can win quickly.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="sf-section-visual">
+            <div class="sf-mini-dashboard">
+              <div class="sf-mini-header">
+                <span class="sf-mini-title">Sample traffic timeline</span>
+                <span class="sf-mini-pill">Last 6 months</span>
+              </div>
+              <div class="sf-mini-chart">
+                <div class="sf-mini-line sf-mini-line-1"></div>
+                <div class="sf-mini-line sf-mini-line-2"></div>
+                <div class="sf-mini-axis sf-mini-axis-y"></div>
+                <div class="sf-mini-axis sf-mini-axis-x"></div>
+              </div>
+              <div class="sf-mini-footer">
+                <div>
+                  <span class="sf-dot sf-dot-organic"></span> Organic trend
+                </div>
+                <div>
+                  <span class="sf-dot sf-dot-paid"></span> Paid campaigns
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sf-section sf-section-alt" id="insights">
+        <div class="sf-container">
+          <div class="sf-section-header">
+            <h2>Instant, sample insights for any domain you try.</h2>
+            <p class="sf-section-subtitle">
+              Enter a domain above to see a realistic demo of the kind of
+              insights SemFellas surfaces—including traffic mix, devices, and
+              engagement metrics.
+            </p>
+          </div>
+
+          <div class="sf-insights-grid">
+            <div class="sf-insight-card">
+              <h3>Top channels</h3>
+              <p class="sf-insight-domain" id="insight-domain">
+                Try a domain to personalize this card.
+              </p>
+              <ul class="sf-insight-list">
+                <li>
+                  <span>Search</span>
+                  <span id="insight-search">68% of traffic</span>
+                </li>
+                <li>
+                  <span>Social</span>
+                  <span id="insight-social">17% of traffic</span>
+                </li>
+                <li>
+                  <span>Direct &amp; referral</span>
+                  <span id="insight-direct">15% of traffic</span>
+                </li>
+              </ul>
+            </div>
+            <div class="sf-insight-card">
+              <h3>Engagement snapshot</h3>
+              <ul class="sf-insight-list">
+                <li>
+                  <span>Avg. visit duration</span>
+                  <span id="insight-duration">03:12</span>
+                </li>
+                <li>
+                  <span>Pages per visit</span>
+                  <span id="insight-pages">3.7</span>
+                </li>
+                <li>
+                  <span>Bounce rate</span>
+                  <span id="insight-bounce">42%</span>
+                </li>
+              </ul>
+            </div>
+            <div class="sf-insight-card">
+              <h3>Devices &amp; regions</h3>
+              <ul class="sf-insight-list">
+                <li>
+                  <span>Desktop share</span>
+                  <span id="insight-desktop">65%</span>
+                </li>
+                <li>
+                  <span>Mobile share</span>
+                  <span id="insight-mobile">28%</span>
+                </li>
+                <li>
+                  <span>Top region</span>
+                  <span id="insight-region">North America</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sf-section" id="how-it-works">
+        <div class="sf-container">
+          <div class="sf-section-header">
+            <h2>How SemFellas fits into your workflow.</h2>
+            <p class="sf-section-subtitle">
+              From research to reporting, SemFellas makes competitive analysis
+              part of your weekly routine—not a once-a-quarter scramble.
+            </p>
+          </div>
+
+          <div class="sf-steps">
+            <div class="sf-step">
+              <div class="sf-step-number">1</div>
+              <h3>Track the right domains</h3>
+              <p>
+                Add competitors, partners, or prospects to always-on tracking so
+                you never miss a meaningful shift in traffic.
+              </p>
+            </div>
+            <div class="sf-step">
+              <div class="sf-step-number">2</div>
+              <h3>Spot opportunities fast</h3>
+              <p>
+                Use channel and keyword insights to uncover campaigns you can
+                replicate—or weaknesses you can exploit.
+              </p>
+            </div>
+            <div class="sf-step">
+              <div class="sf-step-number">3</div>
+              <h3>Report with confidence</h3>
+              <p>
+                Share clean, visual reports with leadership and clients in a
+                click, complete with your commentary.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sf-section sf-section-cta" id="cta">
+        <div class="sf-container sf-cta-inner">
+          <div>
+            <h2>Ready to see what your market is really doing?</h2>
+            <p class="sf-section-subtitle">
+              Plug SemFellas into your workflow and turn competitive traffic
+              data into your unfair advantage.
+            </p>
+          </div>
+          <div class="sf-cta-actions">
+            <button class="sf-button-primary" data-scroll="#top">
+              Start with a sample domain
+            </button>
+            <button class="sf-button-secondary" data-scroll="#features">
+              Explore features
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="sf-footer">
+      <div class="sf-container sf-footer-inner">
+        <div class="sf-logo">
+          <span class="sf-logo-mark">S</span>
+          <span class="sf-logo-text">SemFellas</span>
+        </div>
+        <p class="sf-footer-copy">
+          © <span id="sf-year"></span> SemFellas. Built for performance
+          marketers and growth teams.
+        </p>
+        <div class="sf-footer-links">
+          <a href="#features">Product</a>
+          <a href="#how-it-works">Use cases</a>
+          <a href="#cta">Get access</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
+

@@ -1,0 +1,17 @@
+{
+  "name": "semfellas-landing",
+  "version": "1.0.0",
+  "description": "SemFellas competitive traffic insights landing page with serverless backend API.",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "vercel",
+    "landing-page",
+    "analytics",
+    "serverless"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
