@@ -61,12 +61,54 @@ module.exports = function (req, res) {
   var regions = ["North America", "Europe", "LATAM", "APAC", "Middle East & Africa"];
   var region = regions[seed % regions.length];
 
+  var totalVisits = Math.round(visitsMillions * 1e6);
+  var dailyBase = totalVisits / 30;
+  var dailyTraffic = [];
+  for (var d = 0; d < 14; d++) {
+    var variance = 0.7 + (seed * (d + 1)) % 60 / 100;
+    dailyTraffic.push(Math.round(dailyBase * variance * (0.85 + (d % 7) * 0.03)));
+  }
+
+  var countries = [
+    { name: "United States", code: "US" },
+    { name: "United Kingdom", code: "GB" },
+    { name: "India", code: "IN" },
+    { name: "Canada", code: "CA" },
+    { name: "Germany", code: "DE" },
+    { name: "Australia", code: "AU" }
+  ];
+  var pcts = [
+    clamp(40 + (seed % 25), 40, 65),
+    clamp(8 + ((seed >> 2) % 10), 8, 18),
+    clamp(5 + ((seed >> 4) % 8), 5, 12),
+    clamp(3 + ((seed >> 6) % 6), 3, 9),
+    clamp(2 + ((seed >> 8) % 5), 2, 7),
+    0
+  ];
+  pcts[5] = 100 - pcts[0] - pcts[1] - pcts[2] - pcts[3] - pcts[4];
+  if (pcts[5] < 0) pcts[5] = 0;
+  var countryTraffic = [];
+  for (var c = 0; c < 6; c++) {
+    var idx = (seed + c) % countries.length;
+    countryTraffic.push({
+      country: countries[idx].name,
+      code: countries[idx].code,
+      percent: Math.round(pcts[c])
+    });
+  }
+  var sum = countryTraffic.reduce(function (acc, x) { return acc + x.percent; }, 0);
+  if (sum !== 100 && countryTraffic.length) {
+    countryTraffic[0].percent = countryTraffic[0].percent + (100 - sum);
+  }
+
   res.status(200).json({
     domain: normalized,
     generatedAt: new Date().toISOString(),
     metrics: {
       traffic: {
         estimatedMonthlyVisitsMillions: Number(visitsMillions.toFixed(1)),
+        totalVisits: totalVisits,
+        dailyTraffic: dailyTraffic,
         avgVisitDuration: {
           minutes: minutes,
           seconds: seconds
@@ -85,7 +127,8 @@ module.exports = function (req, res) {
         tabletPercent: Math.round(tabletShare)
       },
       geography: {
-        topRegion: region
+        topRegion: region,
+        byCountry: countryTraffic
       }
     }
   });

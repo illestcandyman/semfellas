@@ -20,6 +20,14 @@
     />
   </head>
   <body>
+    <div class="sf-loading-overlay" id="sf-loading-overlay" aria-hidden="true">
+      <div class="sf-loading-content">
+        <div class="sf-loading-spinner"></div>
+        <p class="sf-loading-text">Analyzing <span id="sf-loading-domain">domain</span>…</p>
+        <p class="sf-loading-sub">Tracking traffic, sources &amp; geography</p>
+      </div>
+    </div>
+
     <header class="sf-header">
       <div class="sf-container sf-header-inner">
         <div class="sf-logo">
@@ -58,7 +66,7 @@
                   placeholder="Enter a domain (example.com)"
                   autocomplete="off"
                 />
-                <button type="submit">Get insights</button>
+                <button type="submit" id="domain-submit-btn">Get insights</button>
               </div>
               <p id="domain-error" class="sf-error" aria-live="polite"></p>
               <p class="sf-helper">
@@ -157,7 +165,7 @@
                 </div>
 
                 <div class="sf-device-split">
-                  <div class="sf-device-pie">
+                  <div class="sf-device-pie" id="hero-device-pie">
                     <div class="sf-device-pie-inner">
                       <span id="metric-desktop">65%</span>
                       <span class="sf-device-label">Desktop</span>
@@ -266,54 +274,210 @@
             </p>
           </div>
 
-          <div class="sf-insights-grid">
-            <div class="sf-insight-card">
+          <div class="sf-insights-panel" id="insights-panel">
+            <div class="sf-panel-header">
+              <h3 class="sf-panel-title">Traffic &amp; performance</h3>
+              <p class="sf-panel-domain" id="panel-domain">Enter a domain to see insights</p>
+            </div>
+
+            <div class="sf-panel-row sf-panel-traffic-row">
+              <div class="sf-total-traffic-card">
+                <span class="sf-total-traffic-label">Total monthly traffic</span>
+                <span class="sf-total-traffic-value" id="total-traffic-value">—</span>
+              </div>
+              <div class="sf-daily-traffic-card">
+                <span class="sf-viz-title">Daily traffic (last 14 days)</span>
+                <div class="sf-daily-chart" id="daily-chart" aria-label="Daily visits sparkline">
+                  <div class="sf-daily-chart-bars" id="daily-chart-bars"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sf-panel-row sf-panel-countries-row">
+              <div class="sf-countries-card">
+                <h3 class="sf-viz-title">Traffic by country</h3>
+                <div class="sf-countries-list" id="countries-list"></div>
+              </div>
+            </div>
+
+            <div class="sf-viz-wrap" id="insights-viz">
+            <div class="sf-viz-main">
+              <div class="sf-viz-donut-card">
+                <h3 class="sf-viz-title">Traffic by channel</h3>
+                <p class="sf-insight-domain sf-viz-domain" id="insight-domain">
+                  Try a domain to personalize.
+                </p>
+                <div class="sf-donut-wrap">
+                  <div class="sf-donut sf-donut-animate" id="donut-channels" role="img" aria-label="Traffic by channel" style="--seg1: 0; --seg2: 0; --seg3: 0">
+                    <div class="sf-donut-hole">
+                      <span class="sf-donut-total" id="donut-total">100%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sf-donut-legend">
+                  <div class="sf-legend-item">
+                    <span class="sf-dot sf-dot-organic"></span>
+                    <span>Search</span>
+                    <span class="sf-legend-value" id="viz-search-pct">68%</span>
+                  </div>
+                  <div class="sf-legend-item">
+                    <span class="sf-dot sf-dot-social"></span>
+                    <span>Social</span>
+                    <span class="sf-legend-value" id="viz-social-pct">17%</span>
+                  </div>
+                  <div class="sf-legend-item">
+                    <span class="sf-dot sf-dot-direct"></span>
+                    <span>Direct &amp; referral</span>
+                    <span class="sf-legend-value" id="viz-direct-pct">15%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sf-viz-bars-card">
+                <h3 class="sf-viz-title">Channel share</h3>
+                <div class="sf-viz-bars">
+                  <div class="sf-viz-bar-row">
+                    <span class="sf-viz-bar-label">Search</span>
+                    <div class="sf-viz-bar-track">
+                      <div class="sf-viz-bar-fill sf-viz-bar-organic" id="viz-bar-search" data-pct="68"></div>
+                    </div>
+                    <span class="sf-viz-bar-pct" id="viz-bar-search-pct">68%</span>
+                  </div>
+                  <div class="sf-viz-bar-row">
+                    <span class="sf-viz-bar-label">Social</span>
+                    <div class="sf-viz-bar-track">
+                      <div class="sf-viz-bar-fill sf-viz-bar-social" id="viz-bar-social" data-pct="17"></div>
+                    </div>
+                    <span class="sf-viz-bar-pct" id="viz-bar-social-pct">17%</span>
+                  </div>
+                  <div class="sf-viz-bar-row">
+                    <span class="sf-viz-bar-label">Direct &amp; referral</span>
+                    <div class="sf-viz-bar-track">
+                      <div class="sf-viz-bar-fill sf-viz-bar-direct" id="viz-bar-direct" data-pct="15"></div>
+                    </div>
+                    <span class="sf-viz-bar-pct" id="viz-bar-direct-pct">15%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sf-viz-secondary">
+              <div class="sf-viz-device-card">
+                <h3 class="sf-viz-title">Traffic by device</h3>
+                <div class="sf-device-donut-wrap">
+                  <div class="sf-device-donut sf-donut-animate" id="device-donut" role="img" aria-label="Desktop vs mobile vs tablet" style="--d1: 0; --d2: 0; --d3: 0">
+                    <div class="sf-donut-hole">
+                      <span class="sf-device-label">Devices</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sf-device-legend">
+                  <div class="sf-legend-item">
+                    <span class="sf-dot sf-dot-desktop"></span>
+                    <span>Desktop</span>
+                    <span class="sf-legend-value" id="viz-device-desktop">65%</span>
+                  </div>
+                  <div class="sf-legend-item">
+                    <span class="sf-dot sf-dot-mobile"></span>
+                    <span>Mobile</span>
+                    <span class="sf-legend-value" id="viz-device-mobile">28%</span>
+                  </div>
+                  <div class="sf-legend-item">
+                    <span class="sf-dot sf-dot-tablet"></span>
+                    <span>Tablet</span>
+                    <span class="sf-legend-value" id="viz-device-tablet">7%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sf-viz-engagement-card">
+                <h3 class="sf-viz-title">Engagement</h3>
+                <div class="sf-ring-group">
+                  <div class="sf-ring-wrap">
+                    <div class="sf-ring" id="ring-duration">
+                      <svg viewBox="0 0 36 36" aria-hidden="true">
+                        <path class="sf-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="sf-ring-fill" id="ring-duration-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      </svg>
+                      <span class="sf-ring-value" id="ring-duration-value">03:12</span>
+                    </div>
+                    <span class="sf-ring-label">Avg. duration</span>
+                  </div>
+                  <div class="sf-ring-wrap">
+                    <div class="sf-ring" id="ring-pages">
+                      <svg viewBox="0 0 36 36" aria-hidden="true">
+                        <path class="sf-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="sf-ring-fill" id="ring-pages-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      </svg>
+                      <span class="sf-ring-value" id="ring-pages-value">3.7</span>
+                    </div>
+                    <span class="sf-ring-label">Pages/visit</span>
+                  </div>
+                  <div class="sf-ring-wrap">
+                    <div class="sf-ring" id="ring-bounce">
+                      <svg viewBox="0 0 36 36" aria-hidden="true">
+                        <path class="sf-ring-bg" id="ring-bounce-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="sf-ring-fill sf-ring-fill-danger" id="ring-bounce-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      </svg>
+                      <span class="sf-ring-value" id="ring-bounce-value">42%</span>
+                    </div>
+                    <span class="sf-ring-label">Bounce rate</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sf-viz-region-card">
+                <h3 class="sf-viz-title">Top region</h3>
+                <div class="sf-region-value" id="viz-region">North America</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sf-insights-grid sf-insights-cards" id="insights-cards">
+            <div class="sf-insight-card sf-card-anim" data-delay="0">
               <h3>Top channels</h3>
-              <p class="sf-insight-domain" id="insight-domain">
-                Try a domain to personalize this card.
-              </p>
               <ul class="sf-insight-list">
                 <li>
                   <span>Search</span>
-                  <span id="insight-search">68% of traffic</span>
+                  <span class="sf-count-up" id="insight-search">68% of traffic</span>
                 </li>
                 <li>
                   <span>Social</span>
-                  <span id="insight-social">17% of traffic</span>
+                  <span class="sf-count-up" id="insight-social">17% of traffic</span>
                 </li>
                 <li>
                   <span>Direct &amp; referral</span>
-                  <span id="insight-direct">15% of traffic</span>
+                  <span class="sf-count-up" id="insight-direct">15% of traffic</span>
                 </li>
               </ul>
             </div>
-            <div class="sf-insight-card">
+            <div class="sf-insight-card sf-card-anim" data-delay="1">
               <h3>Engagement snapshot</h3>
               <ul class="sf-insight-list">
                 <li>
                   <span>Avg. visit duration</span>
-                  <span id="insight-duration">03:12</span>
+                  <span class="sf-count-up" id="insight-duration">03:12</span>
                 </li>
                 <li>
                   <span>Pages per visit</span>
-                  <span id="insight-pages">3.7</span>
+                  <span class="sf-count-up" id="insight-pages">3.7</span>
                 </li>
                 <li>
                   <span>Bounce rate</span>
-                  <span id="insight-bounce">42%</span>
+                  <span class="sf-count-up" id="insight-bounce">42%</span>
                 </li>
               </ul>
             </div>
-            <div class="sf-insight-card">
+            <div class="sf-insight-card sf-card-anim" data-delay="2">
               <h3>Devices &amp; regions</h3>
               <ul class="sf-insight-list">
                 <li>
                   <span>Desktop share</span>
-                  <span id="insight-desktop">65%</span>
+                  <span class="sf-count-up" id="insight-desktop">65%</span>
                 </li>
                 <li>
                   <span>Mobile share</span>
-                  <span id="insight-mobile">28%</span>
+                  <span class="sf-count-up" id="insight-mobile">28%</span>
                 </li>
                 <li>
                   <span>Top region</span>
@@ -321,6 +485,8 @@
                 </li>
               </ul>
             </div>
+          </div>
+
           </div>
         </div>
       </section>
